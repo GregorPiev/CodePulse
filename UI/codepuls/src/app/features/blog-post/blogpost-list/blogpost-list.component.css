@@ -1,0 +1,14 @@
+td,th{
+  width: 10%;
+  padding: 2px 5px;
+
+}
+th{
+  text-align: center;
+}
+div.ellipses{
+  width: 100px;
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis;
+}

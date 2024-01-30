@@ -1,0 +1,9 @@
+.image-wrapper{
+  min-width: 100px;
+  justify-content: center;
+  cursor: pointer;
+}
+.blogImage{
+  height: 100px;
+  margin: 10px;
+}

@@ -1,0 +1,18 @@
+.images-container-modal{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  padding: 50px;
+  background-color: rgba(0,0,0,0.5);
+}
+body{
+  height: 100vh;
+}
+
+.blog-content img{
+  max-width: 100%;
+  margin: 2em 0 2em 0;
+}

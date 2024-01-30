@@ -1,0 +1,79 @@
+<div class="container">
+  <h1 class="mt-3">BlogPost list</h1>
+  <div class="d-flex justify-content-end mt-3">
+    <a [routerLink]="['/admin/blogposts/add']" class="btn btn-primary">Add BlogPost</a>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <ng-container *ngIf="blogPost$ | async as blogPostList; else Loading">
+        <table class="table table-hover table-bordered table-responsive table-striped mt-3">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Categories</th>
+              <th>ShortDescription</th>
+              <th>Content</th>
+              <th>FeaturedImageUrl</th>
+              <th>UrlHandle</th>
+              <th>PublisheDate</th>
+              <th>Author</th>
+              <th>isVisible</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let blogPostItem of blogPostList">
+              <td>
+                <div title="{{ blogPostItem.id }}" class="ellipses">
+                  {{ blogPostItem.id }}
+                </div>
+              </td>
+              <td>
+                <div title="{{ blogPostItem.title }}" class="ellipses">
+                  {{ blogPostItem.title }}
+                </div>
+              </td>
+              <td>
+                <span *ngFor="let category of blogPostItem.categories">
+                  <span class="badge bg-secondary me-2">{{
+                    category.name
+                    }}</span>
+                </span>
+              </td>
+              <td>
+                <div title="{{ blogPostItem.shortDescription }}" class="ellipses">
+                  {{ blogPostItem.shortDescription }}
+                </div>
+              </td>
+              <td>
+                <div title="{{ blogPostItem.content }}" class="ellipses">
+                  {{ blogPostItem.content }}
+                </div>
+              </td>
+              <td>
+                <div title="{{ blogPostItem.featuredImageUrl }}" class="ellipses">
+                  <img src="{{ blogPostItem.featuredImageUrl }}" alt="" width="100" />
+                </div>
+              </td>
+              <td>
+                <div title="{{ blogPostItem.urlHandle }}" class="ellipses">
+                  {{ blogPostItem.urlHandle }}
+                </div>
+              </td>
+              <td>{{ blogPostItem.publisheDate | date }}</td>
+              <td>{{ blogPostItem.author }}</td>
+              <td>{{ blogPostItem.isVisible }}</td>
+              <td>
+                <a class="btn btn-info mt-2" [routerLink]="['/admin/blogposts/edit/', blogPostItem.id]">Edit</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-template #Loading> Loading.... </ng-template>
+    </div>
+  </div>
+</div>

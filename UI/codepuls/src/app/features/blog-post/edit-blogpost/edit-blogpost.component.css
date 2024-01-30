@@ -1,0 +1,27 @@
+button.submit{
+  float: right;
+}
+button.submit:disabled {
+  background-color: #ccc;
+  color: #888;
+}
+
+button.close{
+  position: fixed;
+  top: 10px;
+  right:10px;
+  z-index: 11;
+  padding:3px 10px;
+  border-radius: 15px;
+  line-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;;
+}
+button.close > span{
+  width: 10px;
+  height: 23px;
+  font-size: 15px;
+}

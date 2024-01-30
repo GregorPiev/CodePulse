@@ -1,0 +1,130 @@
+<div class="container">
+  <h1 class="mt-3">Edit Blogpost</h1>
+  <ng-container *ngIf="model; else Loading">
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+      <div class="mt-2 mb-5">
+        <div class="mt-3">
+          <label for="title" class="form-label">Title*</label>
+          <input type="text" id="title" #title="ngModel" required name="title" class="form-control"
+            [(ngModel)]="model.title" />
+          <div class="alert alert-danger" *ngIf="title.touched && title.hasError('required')">
+            Value is required
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label for="UrlHandle" class="form-label">UrlHandle*</label>
+          <input type="text" id="urlHandle" name="urlHandle" #urlHandle="ngModel" required class="form-control"
+            [(ngModel)]="model.urlHandle" />
+          <div class="alert alert-danger" *ngIf="urlHandle.touched && urlHandle.hasError('required')">
+            Value is required
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label for="shortDescription" class="form-label">Short Description*</label>
+          <input type="text" id="shortDescription" name="shortDescription" class="form-control"
+            #shortDescription="ngModel" required [(ngModel)]="model.shortDescription" />
+          <div class="alert alert-danger" *ngIf="
+              shortDescription.touched && shortDescription.hasError('required')
+            ">
+            Value is required
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label for="content" class="form-label">Content*</label>
+          <textarea id="content" name="content" class="form-control" [(ngModel)]="model.content" #content="ngModel"
+            required></textarea>
+          <!-- <div class="d-flex flex-row">
+          <div class="col-6 p-2">
+            <textarea name="content" id="content" class="form-control" style="height: 350px; max-height: 350px;"
+              [(ngModel)]="model.content" #content="ngModel"></textarea>
+          </div>
+          <div class="col-6 p-2" style="overflow-y:scroll; max-height: 350px;">
+            <markdown [data]="model.content"></markdown>
+          </div>
+        </div> -->
+
+          <div class="alert alert-danger" *ngIf="content.touched && content.hasError('required')">
+            Value is required
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label for="featuredImageUrl" class="form-label">Featured Image Url
+            <button type="button" class="btn btn-light" (click)="openImageSelector()">Select Image</button>
+
+          </label>
+          <ng-container *ngIf="model.featuredImageUrl !== ''">
+            <div>
+              <img [src]="model.featuredImageUrl" style="height: 100px" alt="" class="mt-2" />
+            </div>
+          </ng-container>
+
+          <input type="text" id="featuredImageUrl" name="featuredImageUrl" class="form-control"
+            #featuredImageUrl="ngModel" [(ngModel)]="model.featuredImageUrl" />
+        </div>
+
+        <div class="mt-3">
+          <label for="publisheDate" class="form-label">Published Date*</label>
+          <input type="date" id="publisheDate" name="publisheDate" class="form-control" value="{{ model.publisheDate }}"
+            #publisheDate="ngModel" required [ngModel]="model.publisheDate | date : 'yyyy-MM-dd'"
+            (ngModelChange)="model.publisheDate = $event" />
+          <div class="alert alert-danger" *ngIf="publisheDate.touched && publisheDate.hasError('required')">
+            Value is required
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <label for="author" class="form-label">Author*</label>
+          <input type="text" id="author" name="author" class="form-control" [(ngModel)]="model.author" #author="ngModel"
+            required />
+          <div class="alert alert-danger" *ngIf="author.touched && author.hasError('required')">
+            Value is required
+          </div>
+        </div>
+
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="isVisible" name="isVisible"
+            [(ngModel)]="model.isVisible" />
+          <label class="form-check-label" for="isVisible"> Is Visible ? </label>
+        </div>
+
+        <div class="mt-3">
+          <label for="categories" class="form-label">Categories*</label>
+          <ng-container *ngIf="categories$ | async as categories">
+            <select name="categories" id="categories" class="form-control" multiple [(ngModel)]="selectedCategories">
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </ng-container>
+        </div>
+
+        <div class="mt-3 d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary mb-5" [disabled]="form.invalid">
+            Save
+          </button>
+
+          <button type="button" class="btn btn-danger ms-3 mb-5" (click)="onDelete()">Delete</button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-template #Loading>
+    <div class="row mb-5">
+      <div class="col col-1">
+        <h6>Loading...</h6>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<div class="images-container-modal" [ngClass]="{'d-block': isImageSelectorVisible, 'd-none': !isImageSelectorVisible}">
+  <button type="button" class="btn btn-light close" (click)="openImageSelector()">
+    <span>x</span>
+  </button>
+  <app-image-selector></app-image-selector>
+</div>
